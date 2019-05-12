@@ -24,7 +24,6 @@ public class Test {
 //		
 //		System.out.println(list);
 		SortedGroup<Person> group = new SortedGroup<>();
-		GenericList<Person> genericList = new GenericList<>();
 		for (int i = 0; i < 10; i++) {
 			
 		group.add(new Person(i, 150+i*5));
@@ -35,9 +34,8 @@ public class Test {
 		
 		System.out.println(group.getList());
 		System.out.println(group.remove(new Person(0, 150)));
-
-		System.out.println(genericList.reduce(p, group).getList());
+//		Object obj = new Object();
+		System.out.println(GenericList.reduce(p, group).getList());
 		
 	}
-
 }

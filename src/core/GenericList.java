@@ -2,10 +2,9 @@ package core;
 
 import java.util.List;
 
-public class GenericList<T extends Comparable<T>> {
+public class GenericList {
 	
-	
-	public SortedGroup<T> reduce(T x , SortedGroup<T> sGroup){
+	public static <T extends Comparable<T>> SortedGroup<T> reduce(T x , SortedGroup<T> sGroup){
 		
 		SortedGroup<T> sortedGroup = new SortedGroup<>();
 		List<T> newList =  sortedGroup.getList();
@@ -19,5 +18,4 @@ public class GenericList<T extends Comparable<T>> {
 		}
 		return sortedGroup;
 	}
-
 }
