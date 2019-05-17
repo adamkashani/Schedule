@@ -1,10 +1,10 @@
-package core.two;
+package core;
 
 import java.util.Date;
 import java.util.HashMap;
 
-import core.two.bean.MyDate;
-import core.two.file.FileService;
+import core.bean.MyDate;
+import core.file.FileService;
 
 public class Test {
 

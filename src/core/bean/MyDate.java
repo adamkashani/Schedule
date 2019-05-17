@@ -1,4 +1,4 @@
-package core.two.bean;
+package core.bean;
 
 import java.io.Serializable;
 import java.util.Calendar;

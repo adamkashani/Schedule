@@ -1,4 +1,4 @@
-package core.two.file;
+package core.file;
 
 import java.io.Closeable;
 import java.io.File;
@@ -10,7 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-import core.two.bean.MyDate;
+import core.bean.MyDate;
 
 public class FileService {
 

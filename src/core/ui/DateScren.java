@@ -1,4 +1,4 @@
-package core.two.ui;
+package core.ui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,8 +16,8 @@ import java.io.File;
 import java.time.*;
 import java.util.HashMap;
 
-import core.two.bean.MyDate;
-import core.two.file.FileService;
+import core.bean.MyDate;
+import core.file.FileService;
 
 public class DateScren extends Application {
 
