@@ -30,6 +30,12 @@ public class DateScren extends Application {
 	private VBox boxSearch = new VBox();
 
 	private VBox boxHead = new VBox();
+	
+	private VBox boxSave = new VBox();
+	
+	// to see all the map 
+	private VBox boxFormData= new VBox();
+	
 //	private EventHandler<ActionEvent> eventSeeMap = new EventHandler<ActionEvent>() {
 //
 //		@Override
@@ -43,12 +49,11 @@ public class DateScren extends Application {
 		CheckBox checkBoxAppend = new CheckBox("append");
 
 		// create a tile pane
-//		BorderPane tilePane = new BorderPane();
-		TilePane tilePane = new TilePane();
-		tilePane.setAlignment(Pos.CENTER);
-		tilePane.setPadding(new Insets(16));
-		tilePane.setHgap(16);
-		tilePane.setVgap(8);
+		TilePane layoutMain = new TilePane();
+		layoutMain.setAlignment(Pos.CENTER);
+		layoutMain.setPadding(new Insets(16));
+		layoutMain.setHgap(16);
+		layoutMain.setVgap(8);
 		StackPane layoutToPath = new StackPane();
 		Text textDataCheck = new Text("select data to check");
 		textDataCheck.setStyle("-fx-font: normal bold 20px 'serif' ");
@@ -83,13 +88,13 @@ public class DateScren extends Application {
 			}
 		});
 
-		Button saveMap = new Button("save map");
+		Button saveMap = new Button("Save");
 		saveMap.setOnAction(event -> {
 			boolean append = checkBoxAppend.isSelected();
-			if(append) {
+			if (append) {
 				newDataMap.putAll(dataMap);
 			}
-			fileService.saveMap(newDataMap , append);
+			fileService.saveMap(newDataMap);
 		});
 
 		Button seeMap = new Button("see map");
@@ -97,8 +102,6 @@ public class DateScren extends Application {
 
 		// set title for the stage
 		window.setTitle("Schedule");
-
-		// label to show the date check
 
 		// create a date picker
 		DatePicker datePicker = new DatePicker();
@@ -124,39 +127,37 @@ public class DateScren extends Application {
 		Button buttonPathToFile = new Button("Choose");
 		buttonPathToFile.setMaxSize(100, 20);
 		buttonPathToFile.setMinSize(100, 29);
-//		buttonPathToFile.
 
 		buttonPathToFile.setOnAction(event -> {
 			FileChooser chooser = new FileChooser();
 			File file = chooser.showOpenDialog(window);
 			if (file != null) {
-//                String fileAsString = file.toString();
 				this.fileService = new FileService(file);
 				dataMap = fileService.readMap();
 				System.out.println(dataMap);
 				// remove button path to file
 				// box for head and to add
-				tilePane.getChildren().remove(buttonPathToFile);
-				
+				layoutMain.getChildren().remove(buttonPathToFile);
 				boxHead.getChildren().add(haedText);
 				boxHead.getChildren().add(valueToMap);
 				boxHead.getChildren().add(datePicker);
-				tilePane.getChildren().add(boxHead);
+				layoutMain.getChildren().add(boxHead);
 
 				// box for search
+				// label to show the date check
 				Label labelDateSearch = new Label();
 				labelDateSearch.setText("select date to serch ");
 				boxSearch.getChildren().add(labelDateSearch);
 				boxSearch.getChildren().add(dateSerchPicker);
-				tilePane.getChildren().add(boxSearch);
+				layoutMain.getChildren().add(boxSearch);
 
 				// box for save
-				VBox boxSave = new VBox();
 				boxSave.getChildren().add(checkBoxAppend);
 				boxSave.getChildren().add(saveMap);
-				tilePane.getChildren().add(boxSave);
+				layoutMain.getChildren().add(boxSave);
+				
 				// create a scene
-				Scene scene = new Scene(tilePane, 400, 320);
+				Scene scene = new Scene(layoutMain, 400, 320);
 
 				// set the scene
 				window.setScene(scene);

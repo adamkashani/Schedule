@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MyDate implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -15,15 +15,15 @@ public class MyDate implements Serializable {
 	private int day;
 
 	public void setDate(Date date) {
-//		System.out.println("the date befor format");
-		Calendar calendar =	Calendar.getInstance();
+		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.MONTH, 1);
 		month = calendar.get(Calendar.MONTH);
 		day = calendar.get(Calendar.DAY_OF_MONTH);
 		yers = calendar.get(Calendar.YEAR);
 	}
-	public void setDate(int yers , int month , int day) {
+
+	public void setDate(int yers, int month, int day) {
 		this.month = month;
 		this.day = day;
 		this.yers = yers;
@@ -56,9 +56,9 @@ public class MyDate implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "MyDate [yers=" + yers + ", month=" + month + ", day=" + day + "]";
 	}
-	
 }

@@ -25,54 +25,61 @@ public class FileService {
 	}
 
 	public void saveMap(HashMap<MyDate, String> map, boolean append) {
+		FileOutputStream fileOutputStream = null;
+		ObjectOutputStream out = null;
 		try {
 			if (append == true) {
 				HashMap<MyDate, String> readMap = readMap();
-				if(readMap == null) {
+				if (readMap == null) {
 					readMap = new HashMap<>();
 				}
 				readMap.putAll(map);
-				FileOutputStream fileOutputStream = new FileOutputStream(file, false);
-				ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+				fileOutputStream = new FileOutputStream(file, false);
+				out = new ObjectOutputStream(fileOutputStream);
 				out.writeObject(readMap);
 				out.flush();
-				close(out);
-				close(fileOutputStream);
 			} else {
-				FileOutputStream fileOutputStream = new FileOutputStream(file, append);
-				ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
+				fileOutputStream = new FileOutputStream(file, append);
+				out = new ObjectOutputStream(fileOutputStream);
 				out.writeObject(map);
 				out.flush();
-				close(out);
-				close(fileOutputStream);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			close(out);
+			close(fileOutputStream);
 		}
 	}
-	
-	
+
 	/**
-	 * this method get map and save it on file first clear file and write the object 
+	 * this method get map and save it on file first clear file and write the object
+	 * 
 	 * @param map map to save on file
 	 */
 	public void saveMap(HashMap<MyDate, String> map) {
+		FileOutputStream fileOutputStream = null;
+		ObjectOutputStream out = null;
 		try {
-				FileOutputStream fileOutputStream = new FileOutputStream(file, false);
-				ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
-				out.writeObject(map);
-				out.flush();
-				close(out);
-				close(fileOutputStream);
+			fileOutputStream = new FileOutputStream(file, false);
+			out = new ObjectOutputStream(fileOutputStream);
+			out.writeObject(map);
+			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			close(out);
+			close(fileOutputStream);
 		}
 	}
 
 	public HashMap<MyDate, String> readMap() throws RuntimeException {
 		if (checkFileCanRead(this.file)) {
-			try (FileInputStream fileInputStream = new FileInputStream(file);
-					ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);) {
+			FileInputStream fileInputStream = null;
+			ObjectInputStream inputStream = null;
+			try {
+				fileInputStream = new FileInputStream(file);
+				inputStream = new ObjectInputStream(fileInputStream);
 				Object object = inputStream.readObject();
 
 				if (object instanceof HashMap<?, ?>) {
@@ -85,6 +92,9 @@ public class FileService {
 			} catch (IOException | ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				close(inputStream);
+				close(fileInputStream);
 			}
 		}
 		return null;
@@ -92,7 +102,9 @@ public class FileService {
 
 	public void close(Closeable closeable) {
 		try {
-			closeable.close();
+			if (closeable != null) {
+				closeable.close();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -115,5 +127,4 @@ public class FileService {
 		}
 		return true;
 	}
-
 }
